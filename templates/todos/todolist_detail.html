@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Todo List: {{ todolist.name }}</h1>
+<h3>Current Todos</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>    
+            <th>Created</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for todo in todolist.todo_set.all %}
+            <tr>
+                <td>{{ todo.label }}</td>
+                <td>{{ todo.created }}</td>
+                <td>
+                    <form action='/todolist/{{ todolist.pk }}/{{ todo.pk }}/complete/' method='post'>
+                        <button type='submit' class='btn btn-default'>Complete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<hr>
+<h3>Create New Todo</h3>
+<form action="{% url 'todo_create' todolist.pk %}", method='post'>
+    {% csrf_token %}
+    {{ todo_form.as_p }}
+    <input class='btn btn-default' type='submit'>
+</form>
+</ul>
+{% endblock %}
