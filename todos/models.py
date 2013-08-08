@@ -2,6 +2,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.contrib.auth.models import User
 
+from .managers import TodoManager
 
 class TodoList(models.Model):
     name = models.CharField(max_length=255)
@@ -19,3 +20,4 @@ class Todo(models.Model):
 
     list = models.ForeignKey(TodoList)
 
+    objects = TodoManager()
