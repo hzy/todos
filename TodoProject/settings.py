@@ -8,7 +8,7 @@ DATABASES = {
     }
 }
 
-TIME_ZONE = 'Australia/Perth'
+TIME_ZONE = 'Australia/Melbourne'
 
 LANGUAGE_CODE = 'en-us'
 
