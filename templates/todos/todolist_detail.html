@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Todo List: {{ todolist.name }}</h1>
+<h1>{{ todolist.name }}</h1>
+<hr>
 <h3>Current Todos</h3>
 <table class="table">
     <thead>
@@ -12,16 +13,36 @@
         </tr>
     </thead>
     <tbody>
-        {% for todo in todolist.todo_set.all %}
+        {% for todo in todolist.todo_set.incomplete %}
             <tr>
                 <td>{{ todo.label }}</td>
-                <td>{{ todo.created }}</td>
+                <td>{{ todo.created|date:'g:i:sA j/n/y' }} <em>({{ todo.created|timesince }} ago)</em></td>
                 <td>
                     <form action='{{ todo.get_complete_url }}' method='post'>
                         {% csrf_token %}
                         <button type='submit' class='btn btn-default'>Complete</button>
                     </form>
                 </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<hr>
+<h3>Past Todos</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>    
+            <th>Created</th>
+            <th>Last Updated</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for todo in todolist.todo_set.complete %}
+            <tr>
+                <td>{{ todo.label }}</td>
+                <td>{{ todo.created|date:'g:i:sA j/n/y' }} <em>({{ todo.created|timesince }} ago)</em></td>
+                <td>{{ todo.updated|date:'g:i:sA j/n/y' }} <em>({{ todo.updated|timesince }} ago)</em></td>
             </tr>
         {% endfor %}
     </tbody>
