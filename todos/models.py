@@ -24,3 +24,6 @@ class Todo(models.Model):
         return reverse('todo_complete', args=(self.list.pk, self.pk))
 
     objects = TodoManager()
+
+    class Meta:
+        ordering = ('-updated', '-created')
