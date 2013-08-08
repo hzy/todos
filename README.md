@@ -1,4 +1,11 @@
-todos
-=====
+# Intro To Django Testing
 
-Example project for my August 2013 MelbDjango talk on intro to testing.
+
+## Things to cover
+- Model method testing
+- Testing URLs with Django test client
+- Custom manager methods
+- Class based views
+- View testing
+    - django test client
+    - direct interaction with view methods
