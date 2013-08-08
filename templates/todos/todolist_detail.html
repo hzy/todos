@@ -17,7 +17,8 @@
                 <td>{{ todo.label }}</td>
                 <td>{{ todo.created }}</td>
                 <td>
-                    <form action='/todolist/{{ todolist.pk }}/{{ todo.pk }}/complete/' method='post'>
+                    <form action='{{ todo.get_complete_url }}' method='post'>
+                        {% csrf_token %}
                         <button type='submit' class='btn btn-default'>Complete</button>
                     </form>
                 </td>

@@ -20,4 +20,7 @@ class Todo(models.Model):
 
     list = models.ForeignKey(TodoList)
 
+    def get_complete_url(self):
+        return reverse('todo_complete', args=(self.list.pk, self.pk))
+
     objects = TodoManager()

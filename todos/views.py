@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
-from django.views.generic import ListView, DetailView, CreateView, FormView
+from django.views.generic import ListView, DetailView, CreateView, FormView, View
 
 from .models import Todo, TodoList
 from .forms import TodoForm
@@ -28,4 +28,20 @@ class TodoCreateView(FormView):
             label=form.cleaned_data['label'],
             list=todo_list
         )
+        return redirect(todo_list.get_absolute_url())
+
+class TodoCompleteView(View):
+    def get_todo_list(self):
+        return TodoList.objects.get(pk=self.kwargs['pk'])
+
+    def get_todo(self):
+        return Todo.objects.get(pk=self.kwargs['todo_pk'])
+
+    def post(self, *args, **kwargs):
+        todo_list = self.get_todo_list()
+        todo = self.get_todo()
+
+        todo.is_done = True
+        todo.save()
+
         return redirect(todo_list.get_absolute_url())
